@@ -38,9 +38,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@faker-js/faker": "^9.4.0",
     "@types/react": "~18.3.12",
     "@types/redux-persist": "^4.3.1",
     "concurrently": "^9.1.2",
+    "msw": "^2.7.0",
     "typescript": "^5.3.3"
   },
   "private": true
