@@ -1,24 +1,24 @@
+
 import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./redux/store";
 import { Stack } from "expo-router";
-import { View, ActivityIndicator, StatusBar, Platform, } from "react-native";
+import { View, ActivityIndicator, StatusBar } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
+import Toast from "react-native-toast-message";
+import ErrorBoundary from "./components/ErrorBoundary";
+import store, { persistor } from "./redux/store";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
-  const primaryColor = "blue"; // Change this to match your theme
-   NavigationBar.setBackgroundColorAsync(primaryColor); // ✅ Set bottom navbar color
-   NavigationBar.setButtonStyleAsync("light"); // ✅ Set icons to light mode
-  //  NavigationBar.setVisibilityAsync("hidden")
+  const primaryColor = "blue";
+
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
-        await NavigationBar.setBackgroundColorAsync(primaryColor); // ✅ Set bottom navbar color
-        await NavigationBar.setButtonStyleAsync("light"); // ✅ Set icons to light mode
-        // await NavigationBar.setVisibilityAsync("hidden")
+      await NavigationBar.setBackgroundColorAsync(primaryColor);
+      await NavigationBar.setButtonStyleAsync("light");
       setTimeout(() => {
         setIsReady(true);
         SplashScreen.hideAsync();
@@ -46,9 +46,13 @@ export default function RootLayout() {
         }
         persistor={persistor}
       >
-        <Stack screenOptions={{ title: "Welcome Switcher", headerShown: false }} />
-        <StatusBar backgroundColor={primaryColor} barStyle="light-content" />
+        <ErrorBoundary> 
+          <Stack screenOptions={{ headerShown: false }} />
+          <StatusBar backgroundColor={primaryColor} barStyle="light-content" />
+          <Toast />
+        </ErrorBoundary>
       </PersistGate>
     </Provider>
   );
 }
+

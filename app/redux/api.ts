@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://your-api.com";
+const API_BASE_URL = "http://192.168.43.170:3001";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials:true
 });
 
 // Optional: Add request interceptor (e.g., for authentication tokens)

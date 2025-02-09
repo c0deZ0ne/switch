@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, ActivityIndicator, ImageBackground } from "react-native";
+import { View, Text, Button, StyleSheet, ActivityIndicator, ImageBackground, StatusBar } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "./redux/store";
 import React, { useEffect, useState } from "react";
@@ -12,14 +12,12 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets(); // ✅ Get Safe Area Insets
   const [isReady, setIsReady] = useState(false);
-  const primaryColor = "blue"; // Change this to match your theme
+  const primaryColor = "puple"; // Change this to match your theme
 
   useEffect(() => {
     SplashScreen.preventAutoHideAsync();
     NavigationBar.setBackgroundColorAsync(primaryColor); // ✅ Set bottom navbar color
-    NavigationBar.setButtonStyleAsync("light"); // ✅ Set icons to light mode
-    NavigationBar.setVisibilityAsync("hidden");
-    
+    NavigationBar.setButtonStyleAsync("light"); // ✅ Set icons to light mode    
     async function prepare() {
       setTimeout(() => {
         setIsReady(true);
@@ -30,9 +28,12 @@ export default function HomeScreen() {
   }, []);
 
   if (!isReady) {
+    NavigationBar.setBackgroundColorAsync(primaryColor); // ✅ Set bottom navbar color
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color={primaryColor} />
+        <StatusBar backgroundColor={primaryColor} barStyle="light-content" />
+        
       </View>
     );
   }
