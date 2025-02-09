@@ -11,3 +11,16 @@ json-server --host 0.0.0.0 --watch db.json --port 3001 external
 
 
 ifconfig | grep "inet "
+
+
+Run JSON Server with verbose logging using --verbose:
+
+sh
+Copy
+Edit
+json-server --host 0.0.0.0 --watch db.json --port 3001 --verbose
+This will log every request made to the server, including:
+
+HTTP method (GET, POST, PUT, DELETE)
+Request body
+Response status codes

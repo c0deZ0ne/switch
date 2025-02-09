@@ -9,14 +9,14 @@ import * as NavigationBar from "expo-navigation-bar";
 import Toast from "react-native-toast-message";
 import ErrorBoundary from "./components/ErrorBoundary";
 import store, { persistor } from "./redux/store";
-import { server } from "../mock/server";
+import { worker } from "../mock/server";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const primaryColor = "blue";
 
   if (__DEV__) {
-    server.listen(); // ✅ Start mock API in development
+    worker.start(); // ✅ Start mock API in development
   }
   useEffect(() => {
     async function prepare() {
