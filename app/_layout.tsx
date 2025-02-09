@@ -49,7 +49,9 @@ const RootLayout = () => {
         }
         persistor={persistor}
       >
-        <Stack />
+        <Stack
+          screenOptions={{ title: "Welcome Switcher", headerShown: false }}
+        />
       </PersistGate>
     </Provider>
   );

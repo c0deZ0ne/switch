@@ -10,7 +10,17 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
 
   return (
-    <View>
+    <View
+      style={{
+        justifyContent: "center",
+        alignContent: "center",
+        display: "flex",
+        width: "auto",
+        height: "100%",
+        backgroundColor: "blue",
+        padding:20
+      }}
+    >
       <Text>Welcome, {user.name || "Guest"} 👋</Text>
       <Button
         title="login"
