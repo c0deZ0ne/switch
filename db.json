@@ -1,90 +1,117 @@
 {
-    "users": [
-      {
-        "id": "1",
-        "name": "John Doe",
-        "email": "john@example.com",
-        "password": "password123",
-        "phone": "+2348012345678",
-        "biometricEnabled": true,
-        "createdAt": "2024-02-10T12:30:00Z"
-      },
-      {
-        "id": "2",
-        "name": "Jane Smith",
-        "email": "jane@example.com",
-        "password": "securepass456",
-        "phone": "+2348098765432",
-        "biometricEnabled": false,
-        "createdAt": "2024-02-09T09:15:00Z"
-      }
-    ],
-    "bankAccounts": [
-      {
-        "id": "101",
-        "userId": "1",
-        "accountName": "John's Savings",
-        "accountNumber": "1234567890",
-        "balance": 500000,
-        "currency": "NGN",
-        "type": "Savings",
-        "bankName": "Moniepoint Bank",
-        "createdAt": "2024-01-20T10:00:00Z"
-      },
-      {
-        "id": "102",
-        "userId": "1",
-        "accountName": "John's Business Account",
-        "accountNumber": "0987654321",
-        "balance": 1200000,
-        "currency": "NGN",
-        "type": "Current",
-        "bankName": "GTBank",
-        "createdAt": "2023-12-15T15:45:00Z"
-      },
-      {
-        "id": "103",
-        "userId": "2",
-        "accountName": "Jane's Personal Account",
-        "accountNumber": "1122334455",
-        "balance": 800000,
-        "currency": "NGN",
-        "type": "Savings",
-        "bankName": "Access Bank",
-        "createdAt": "2024-02-01T08:30:00Z"
-      }
-    ],
-    "transactions": [
-      {
-        "id": "5001",
-        "userId": "1",
-        "accountId": "101",
-        "type": "Deposit",
-        "amount": 250000,
-        "currency": "NGN",
-        "status": "Success",
-        "timestamp": "2024-02-08T14:15:00Z"
-      },
-      {
-        "id": "5002",
-        "userId": "1",
-        "accountId": "102",
-        "type": "Withdrawal",
-        "amount": 50000,
-        "currency": "NGN",
-        "status": "Success",
-        "timestamp": "2024-02-07T18:45:00Z"
-      },
-      {
-        "id": "5003",
-        "userId": "2",
-        "accountId": "103",
-        "type": "Deposit",
-        "amount": 300000,
-        "currency": "NGN",
-        "status": "Failed",
-        "timestamp": "2024-02-06T12:30:00Z"
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123",
+      "phone": "+2348012345678",
+      "biometricEnabled": true,
+      "createdAt": "2024-02-10T12:30:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "securepass456",
+      "phone": "+2348098765432",
+      "biometricEnabled": false,
+      "createdAt": "2024-02-09T09:15:00Z"
+    },
+    {
+      "id": "2001",
+      "name": "www",
+      "email": "john@example.comq",
+      "password": "password123",
+      "createdAt": "2025-02-10T08:53:30.462Z"
+    },
+    {
+      "id": "fef5",
+      "name": "Joe",
+      "email": "ema@g",
+      "password": "password",
+      "createdAt": "2025-02-10T10:39:38.288Z"
+    },
+    {
+      "id": "c073",
+      "name": "Prisca Peter oyom",
+      "email": "Oyomprisca2024@gmail.com",
+      "password": "09169555085",
+      "createdAt": "2025-02-10T13:45:01.738Z"
+    },
+    {
+      "id": "174a",
+      "name": "Oyom ",
+      "email": "oyomprisca2024@gmail.com",
+      "password": "prisca1990@",
+      "createdAt": "2025-02-10T14:38:40.893Z"
+    }
+  ],
+  "bankAccounts": [
+    {
+      "id": "101",
+      "userId": "1",
+      "accountName": "John's Savings",
+      "accountNumber": "1234567890",
+      "balance": 500000,
+      "currency": "NGN",
+      "type": "Savings",
+      "bankName": "Moniepoint Bank",
+      "createdAt": "2024-01-20T10:00:00Z"
+    },
+    {
+      "id": "102",
+      "userId": "1",
+      "accountName": "John's Business Account",
+      "accountNumber": "0987654321",
+      "balance": 1200000,
+      "currency": "NGN",
+      "type": "Current",
+      "bankName": "GTBank",
+      "createdAt": "2023-12-15T15:45:00Z"
+    },
+    {
+      "id": "103",
+      "userId": "2",
+      "accountName": "Jane's Personal Account",
+      "accountNumber": "1122334455",
+      "balance": 800000,
+      "currency": "NGN",
+      "type": "Savings",
+      "bankName": "Access Bank",
+      "createdAt": "2024-02-01T08:30:00Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "5001",
+      "userId": "1",
+      "accountId": "101",
+      "type": "Deposit",
+      "amount": 250000,
+      "currency": "NGN",
+      "status": "Success",
+      "timestamp": "2024-02-08T14:15:00Z"
+    },
+    {
+      "id": "5002",
+      "userId": "1",
+      "accountId": "102",
+      "type": "Withdrawal",
+      "amount": 50000,
+      "currency": "NGN",
+      "status": "Success",
+      "timestamp": "2024-02-07T18:45:00Z"
+    },
+    {
+      "id": "5003",
+      "userId": "2",
+      "accountId": "103",
+      "type": "Deposit",
+      "amount": 300000,
+      "currency": "NGN",
+      "status": "Failed",
+      "timestamp": "2024-02-06T12:30:00Z"
+    }
+  ]
+}

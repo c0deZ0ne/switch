@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import React, { useEffect } from "react";
 import { Tabs, useRouter, usePathname } from "expo-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { User } from "../../types";
+import { User } from "../types";
 
 const TabsLayout = () => {
   const { name, isAuthenticated } = useSelector(
@@ -15,18 +15,14 @@ const TabsLayout = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      if (pathname !== "/(auth)/login") {
-        router.replace("/(auth)/login"); // ✅ Prevents back navigation to protected pages
+      if (pathname !== "/") {
+        router.replace("/"); // ✅ Prevents back navigation to protected pages
       }
     }
   }, [isAuthenticated, pathname]);
 
   return (
     <Tabs>
-      <Tabs.Screen
-        name="users/[id]"
-        options={{ title: "User", headerTitle: "User Page" }}
-      />
       <Tabs.Screen
         name="dashboard"
         options={{ title: "Dashboard", headerTitle: "Dashboard" }}

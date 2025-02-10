@@ -29,7 +29,7 @@ function LoadingScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <ActivityIndicator size="large" color="blue" />
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
     </View>
   );
 }
@@ -56,7 +56,7 @@ function AuthHandler() {
 
   useEffect(() => {
     if (isAppReady) {
-      if (!user.isAuthenticated && segments[0] !== "(auth)") {
+      if (!user.isAuthenticated && segments[0] !== "/") {
         // router.replace("/(auth)/login");
       }
     }

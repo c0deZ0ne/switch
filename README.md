@@ -10,7 +10,7 @@ json-server --watch db.json --port 3001
 json-server --host 0.0.0.0 --watch db.json --port 3001 external
 
 
-ifconfig | grep "inet "
+ifconfig | grep "inet ":--mac
 
 
 Run JSON Server with verbose logging using --verbose:

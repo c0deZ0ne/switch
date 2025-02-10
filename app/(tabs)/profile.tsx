@@ -1,10 +1,10 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StatusBar } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { usePathname, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { logout } from "../redux/userSlice";
 import { RootState } from "../redux/store";
-import { User } from "../../types";
+import { User } from "../types";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -17,14 +17,14 @@ export default function Profile() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      if (pathname !== "/(auth)/login") {
-        router.replace("/(auth)/login"); // Prevents back navigation to protected pages
+      if (pathname !== "/") {
+        router.replace("/"); // Prevents back navigation to protected pages
       }
     }
   }, [isAuthenticated, pathname]);
 
   return (
-    <View>
+    <View>      
       <Text>Welcome {name} To Your profile</Text>
       <Button title="Logout" onPress={() => dispatch(logout())} />
     </View>
