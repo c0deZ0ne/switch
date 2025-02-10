@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
+import { worker } from "../mock/server";
 export default function HomeScreen() {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ export default function HomeScreen() {
   const primaryColor = "puple"; // Change this to match your theme
 
   useEffect(() => {
+     if (__DEV__) {
+        worker.start({}); // ✅ Start mock API in development
+      }
     SplashScreen.preventAutoHideAsync();
     NavigationBar.setBackgroundColorAsync(primaryColor); // ✅ Set bottom navbar color
     NavigationBar.setButtonStyleAsync("light"); // ✅ Set icons to light mode    

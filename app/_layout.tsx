@@ -9,15 +9,12 @@ import * as NavigationBar from "expo-navigation-bar";
 import Toast from "react-native-toast-message";
 import ErrorBoundary from "./components/ErrorBoundary";
 import store, { persistor } from "./redux/store";
-import { worker } from "../mock/server";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const primaryColor = "blue";
 
-  if (__DEV__) {
-    worker.start(); // ✅ Start mock API in development
-  }
+ 
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
