@@ -1,16 +1,31 @@
 import { View, Text, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import React from "react";
+import { usePathname, useRouter } from "expo-router";
+import React, { useEffect } from "react";
 import { logout } from "../redux/userSlice";
 import { RootState } from "../redux/store";
+import { User } from "../../types";
 
-export default function HomeScreen() {
-  const user = useSelector((state: RootState) => state.user);
+export default function Profile() {
   const dispatch = useDispatch();
+  const { name, isAuthenticated } = useSelector(
+    (state: RootState) => state.user as User
+  );
+
+  const router = useRouter();
+  const pathname = usePathname(); // Get current route
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      if (pathname !== "/(auth)/login") {
+        router.replace("/(auth)/login"); // Prevents back navigation to protected pages
+      }
+    }
+  }, [isAuthenticated, pathname]);
 
   return (
     <View>
-      <Text>Welcome, {user.name || "Guest"} 👋</Text>
+      <Text>Welcome {name} To Your profile</Text>
       <Button title="Logout" onPress={() => dispatch(logout())} />
     </View>
   );

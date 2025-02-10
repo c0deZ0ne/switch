@@ -23,7 +23,6 @@ const loginSchema = Yup.object().shape({
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const [loginUser, { isLoading ,isError,error}] = useLoginUserMutation();
 
   const formik = useFormik({

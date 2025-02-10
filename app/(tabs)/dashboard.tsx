@@ -1,23 +1,25 @@
 import { View, Text, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { logout } from "../redux/userSlice";
 import { RootState } from "../redux/store";
+import { User } from "../../types";
 
-export default function HomeScreen() {
-  const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+export default function Dashboard() {
+  const { name, isAuthenticated } = useSelector(
+    (state: RootState) => state.user as User
+  );
+
   const router = useRouter();
 
-  if (!user?.name) {
-    router.replace("/(auth)/login"); // Redirect if not logged in
-    return null;
-  }
+  useEffect(() => {
+    if (!isAuthenticated) router.push({ pathname: "/(auth)/login" });
+  }, [isAuthenticated]);
 
   return (
     <View>
-      <Text>Welcome, {user?.name || "Guest"} 👋</Text>
+      <Text>Welcome {name} To Your Dashboard👋</Text>
       <Button title="Logout" />
     </View>
   );

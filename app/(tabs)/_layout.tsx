@@ -1,21 +1,39 @@
 import { View, Text } from "react-native";
-import React from "react";
-import { Tabs } from "expo-router";
+import React, { useEffect } from "react";
+import { Tabs, useRouter, usePathname } from "expo-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { User } from "../../types";
 
 const TabsLayout = () => {
+  const { name, isAuthenticated } = useSelector(
+    (state: RootState) => state.user as User
+  );
+
+  const router = useRouter();
+  const pathname = usePathname(); // ✅ Get current route
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      if (pathname !== "/(auth)/login") {
+        router.replace("/(auth)/login"); // ✅ Prevents back navigation to protected pages
+      }
+    }
+  }, [isAuthenticated, pathname]);
+
   return (
     <Tabs>
-      <Tabs.Screen
-        name="index"
-        options={{ headerTitle: "Home", title: "Home" }}
-      />
       <Tabs.Screen
         name="users/[id]"
         options={{ title: "User", headerTitle: "User Page" }}
       />
       <Tabs.Screen
-        name="HomeScreen"
-        options={{ title: "User", headerTitle: "User Page" }}
+        name="dashboard"
+        options={{ title: "Dashboard", headerTitle: "Dashboard" }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{ title: "Profile", headerTitle: "Profile" }}
       />
     </Tabs>
   );
