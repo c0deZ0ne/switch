@@ -11,7 +11,7 @@ export interface BankAccount {
   createdAt: string; // ISO date string
 }
 
-    export type User = {
+     type User = {
         id: string;
         name: string;
         email: string;
@@ -26,3 +26,6 @@ export interface BankAccount {
         bankAccounts:BankAccount[];
       };
       
+  
+
+    export default User

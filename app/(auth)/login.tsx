@@ -8,16 +8,16 @@ import {
   Keyboard,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { useLoginUserMutation } from "../redux/apiSlice";
 import CustomButton from "../components/CustomButton";
 import * as LocalAuthentication from "expo-local-authentication";
-import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 // 📌 Define validation schema
@@ -28,7 +28,7 @@ const loginSchema = Yup.object().shape({
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state:RootState)=>state.user)
+  const user = useSelector((state: RootState) => state.user);
   const router = useRouter();
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const [biometricSupported, setBiometricSupported] = useState(false);
@@ -36,29 +36,37 @@ const LoginScreen = () => {
   // Check if Biometrics are available on device
   useEffect(() => {
     async function checkBiometricSupport() {
-      const hasHardware = await LocalAuthentication.hasHardwareAsync();
-      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-      setBiometricSupported(hasHardware && isEnrolled);
+      try {
+        const hasHardware = await LocalAuthentication.hasHardwareAsync();
+        const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+        setBiometricSupported(hasHardware && isEnrolled);
+      } catch (error) {
+        console.error("Biometric support check failed:", error);
+      }
     }
     checkBiometricSupport();
   }, []);
 
   // Biometric Authentication Function
   const handleBiometricLogin = async () => {
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Switch in with Biometrics",
-      cancelLabel: "Cancel",
-      disableDeviceFallback: true, // Only use biometrics
-    });
-
-    if (result.success) {
-      formik.setValues({ username:user.email,password:user.password });
-      handleLogin({username:user.email,password:user.password  });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Biometric Authentication Failed",
+    try {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Switch in with Biometrics",
+        cancelLabel: "Cancel",
+        disableDeviceFallback: true, // Only use biometrics
       });
+
+      if (result.success) {
+        formik.setValues({ username: user.email, password: user.password });
+        handleLogin({ username: user.email, password: user.password });
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Biometric Authentication Failed",
+        });
+      }
+    } catch (error) {
+      console.error("Biometric login error:", error);
     }
   };
 
@@ -67,7 +75,6 @@ const LoginScreen = () => {
     validationSchema: loginSchema,
     onSubmit: async (values, { setSubmitting }) => {
       Keyboard.dismiss();
-      console.log("Submitting values:", values);
       handleLogin(values);
       setSubmitting(false);
     },
@@ -126,7 +133,7 @@ const LoginScreen = () => {
         />
 
         {/* Biometric Login Button */}
-        {biometricSupported && (
+        {biometricSupported && Platform.OS !== "web" && (
           <TouchableOpacity style={styles.biometricButton} onPress={handleBiometricLogin}>
             <Text style={styles.biometricText}>Login with Biometrics</Text>
           </TouchableOpacity>
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#fff",
     width: "100%",
-    opacity: 0.8,
+    opacity: 0.9,
     borderRadius: 10,
     height: "50%",
     shadowOpacity: 0.7,
@@ -162,4 +169,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-

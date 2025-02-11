@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Stack, useRouter, useSegments } from "expo-router";
-import { View, ActivityIndicator, StatusBar } from "react-native";
+import { View, ActivityIndicator, StatusBar, Platform } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import * as NavigationBar from "expo-navigation-bar";
 import Toast from "react-native-toast-message";
 import ErrorBoundary from "./components/ErrorBoundary";
 import store, { persistor } from "./redux/store";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 
+// ✅ RootLayout Component
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+      <PersistGate persistor={persistor} loading={null}>
         <ErrorBoundary>
           <AuthHandler />
           <Toast />
@@ -24,7 +24,7 @@ export default function RootLayout() {
   );
 }
 
-//Show a loading screen while Redux Persist is rehydrating state
+// ✅ Loading Screen
 function LoadingScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -34,7 +34,7 @@ function LoadingScreen() {
   );
 }
 
-//Handles navigation based on authentication state
+// ✅ AuthHandler Component
 function AuthHandler() {
   const router = useRouter();
   const segments = useSegments();
@@ -44,8 +44,14 @@ function AuthHandler() {
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
-      await NavigationBar.setBackgroundColorAsync("blue");
-      await NavigationBar.setButtonStyleAsync("light");
+
+      // ✅ Only apply Navigation Bar settings on Android
+      if (Platform.OS === "android") {
+        const NavigationBar = await import("expo-navigation-bar");
+        await NavigationBar.setBackgroundColorAsync("blue");
+        await NavigationBar.setButtonStyleAsync("light");
+      }
+
       setTimeout(() => {
         setIsAppReady(true);
         SplashScreen.hideAsync();
@@ -56,11 +62,11 @@ function AuthHandler() {
 
   useEffect(() => {
     if (isAppReady) {
-      if (!user.isAuthenticated && segments[0] !== "/") {
+      if (!user.isAuthenticated && segments?.[0] !== "/") {
         // router.replace("/(auth)/login");
       }
     }
-  }, [user.isAuthenticated, isAppReady]);
+  }, [user.isAuthenticated, isAppReady, segments]);
 
   if (!isAppReady) {
     return <LoadingScreen />;

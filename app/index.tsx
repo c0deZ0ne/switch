@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  Button,
-  StyleSheet,
   ActivityIndicator,
   ImageBackground,
   StatusBar,
+  StyleSheet,
+  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
-import * as NavigationBar from "expo-navigation-bar";
 import { RootState } from "./redux/store";
 import { logout } from "./redux/userSlice";
 import LoginScreen from "./(auth)/login";
@@ -32,8 +31,13 @@ export default function HomeScreen() {
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
-      await NavigationBar.setBackgroundColorAsync("#fff");
-      await NavigationBar.setButtonStyleAsync("dark");
+
+      // ✅ Only set Navigation Bar on Android
+      if (Platform.OS === "android") {
+        const NavigationBar = await import("expo-navigation-bar");
+        await NavigationBar.setBackgroundColorAsync("#fff");
+        await NavigationBar.setButtonStyleAsync("dark");
+      }
 
       setTimeout(() => {
         setIsReady(true);
@@ -89,15 +93,11 @@ export default function HomeScreen() {
       ]}
       resizeMode="cover"
     >
-        <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
-
+      <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
       <View style={styles.innerContainer}>
         <Text style={styles.text}>{greeting}</Text>
-
-        <LoginScreen/>
-        
+        <LoginScreen />
       </View>
-      
     </ImageBackground>
   );
 }
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 255, 0.2)",
     padding: 20,
-    minHeight:600
+    minHeight: 600,
   },
   text: {
     color: "white",
@@ -124,3 +124,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
