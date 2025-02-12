@@ -14,24 +14,29 @@ import { Carousel, Button } from "@ant-design/react-native";
 import { RootState } from "../redux/store";
 import { BankAccount, Transaction } from "../types";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { Slot, useRouter, useSegments } from "expo-router";
+import { Empty, EmptyProps } from "antd-mobile";
 
 const DashboardScreen = () => {
-  const user = useSelector((state: RootState) => state.user.name);
+  const user = useSelector((state: RootState) => state.user);
   const accounts: BankAccount[] = useSelector(
     (state: RootState) => state.user.bankAccounts
   );
   const transactions: Transaction[] = useSelector(
     (state: RootState) => state.user?.transactions || []
   );
+  const segments = useSegments();
 
   useEffect(() => {
-    console.log(transactions);
-  }, []);
+    if (!user.isAuthenticated && segments?.[0] !== "/") {
+      router.replace("/(auth)/login");
+    }
+  }, [user.isAuthenticated, segments]);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
 
-      <Text style={styles.greeting}>Welcome, {user}!</Text>
+      <Text style={styles.greeting}>Welcome, {user.name}!</Text>
       {accounts.length > 0 && (
         <Carousel
           style={styles.carousel}
@@ -52,21 +57,31 @@ const DashboardScreen = () => {
         </Carousel>
       )}
       <Text style={styles.sectionTitle}>Transaction History</Text>
-      <FlatList
-        data={transactions }
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={[styles.transactionItem, styles.shadow]}>
-            <Text>
-              {item.amount.toLocaleString()} {item.currency}
-            </Text>
-            <Text style={{ color: item.amount > 0 ? "green" : "red" }}>
-              {item.amount > 0 ? "+" : "-"} {item.currency}{" "}
-              {item.amount.toLocaleString()}
-            </Text>
-          </View>
-        )}
-      />
+      {transactions.length > 0 ? (
+        <FlatList
+          data={transactions}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={[styles.transactionItem, styles.shadow]}>
+              <Text>
+                {item.type.toLocaleString()} {item.currency}
+              </Text>
+              <Text>{item.id.toLocaleString()}</Text>
+              <Text
+                style={{ color: item.status == "Success" ? "green" : "red" }}
+              >
+                {item.status.toLocaleString()}
+              </Text>
+              <Text style={{ color: item.amount > 0 ? "green" : "red" }}>
+                {item.amount > 0 ? "+" : ""}
+                {item.amount.toLocaleString()}
+              </Text>
+            </View>
+          )}
+        />
+      ) : (
+        <Empty />
+      )}
     </View>
   );
 };

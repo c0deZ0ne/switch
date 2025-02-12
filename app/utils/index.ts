@@ -1,5 +1,5 @@
 import { BankAccount } from "../types";
-import { nanoid } from "nanoid/non-secure"; // Optimized for React Native
+import { nanoid } from "nanoid/non-secure"; 
 
 export const generateBankDetails = (userId: string): BankAccount => {
   const accountNumber = generateRandomAccountNumber();
@@ -18,7 +18,7 @@ export const generateBankDetails = (userId: string): BankAccount => {
   };
 };
 
-// 🔹 Generate a random 10-digit account number
+// Generate a random 10-digit account number
 const generateRandomAccountNumber = (): string => {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
 };

@@ -37,7 +37,7 @@ function AuthHandler() {
 
       if (Platform.OS === "android") {
         const NavigationBar = await import("expo-navigation-bar");
-        await NavigationBar.setBackgroundColorAsync("blue");
+        await NavigationBar.setBackgroundColorAsync("#fff");
         await NavigationBar.setButtonStyleAsync("light");
       }
 

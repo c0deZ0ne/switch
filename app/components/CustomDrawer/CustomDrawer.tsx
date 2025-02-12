@@ -35,11 +35,11 @@ const CustomDrawer = ({ children }: { children: React.ReactNode }) => {
       )}
 
       {/* Drawer Menu */}
-      {/* <Animated.View style={[styles.drawer, { left: drawerAnim }]}>
+      <Animated.View style={[styles.drawer, { left: drawerAnim }]}>
         <TouchableOpacity onPress={() => toggleDrawer()}>
           <Text style={styles.item}></Text>
         </TouchableOpacity>
-      </Animated.View> */}
+      </Animated.View>
 
       {/* Main App Content */}
       <View style={{ flex: 1 }}>{children}</View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(187, 29, 29, 0.2)",
     zIndex: 5,
   },
   drawer: {
@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   item: {
-    fontSize: 18,
+    fontSize: 8,
     padding: 20,
     borderBottomWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "red",
   },
   active: {
     backgroundColor: "#f0f0f0",

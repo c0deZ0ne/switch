@@ -98,7 +98,7 @@
       "userId": "1",
       "accountId": "102",
       "type": "Withdrawal",
-      "amount": 50000,
+      "amount": -50000,
       "currency": "NGN",
       "status": "Success",
       "timestamp": "2024-02-07T18:45:00Z"

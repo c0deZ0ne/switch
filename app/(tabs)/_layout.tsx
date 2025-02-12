@@ -7,13 +7,13 @@ import {
   StatusBar,
   Platform,
   Animated,
-  Button,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
 } from "react-native";
 import { Slot, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import Toast from "react-native-toast-message";
-
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import store, { persistor, RootState } from "../redux/store";
 import { useDispatch } from "react-redux";
@@ -46,13 +46,14 @@ function AuthHandler() {
   const [isAppReady, setIsAppReady] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerAnim = new Animated.Value(drawerOpen ? 0 : -250);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
       if (Platform.OS === "android") {
         const NavigationBar = await import("expo-navigation-bar");
-        await NavigationBar.setBackgroundColorAsync("blue");
+        await NavigationBar.setBackgroundColorAsync("#fff");
         await NavigationBar.setButtonStyleAsync("light");
       }
       setTimeout(() => {
@@ -64,8 +65,17 @@ function AuthHandler() {
   }, []);
 
   useEffect(() => {
-    if (isAppReady && !user.isAuthenticated && segments?.[0] !== "/") {
-      router.replace("/(auth)/login");
+    if (isAppReady && !user.isAuthenticated) {
+      if (
+        segments &&
+        segments.length > 0 &&
+        !segments.includes("(auth)") &&
+        segments[0] !== "/"
+      ) {
+        router.replace("/(auth)/login");
+      } else if (segments && segments.length > 0) {
+        router.replace("/(auth)/login");
+      }
     }
   }, [user.isAuthenticated, isAppReady, segments]);
 
@@ -81,8 +91,6 @@ function AuthHandler() {
       useNativeDriver: false,
     }).start();
   };
-
-  const dispatch = useDispatch();
 
   return (
     <View style={{ flex: 1 }}>
@@ -137,7 +145,7 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     position: "absolute",
-    top: "90%",
+    top: "90%", // Adjust as needed
     left: 0,
     zIndex: 20,
     backgroundColor: "white",
