@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -24,6 +24,9 @@ const DashboardScreen = () => {
     (state: RootState) => state.user?.transactions || []
   );
 
+  useEffect(() => {
+    console.log(transactions);
+  }, []);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
@@ -50,8 +53,8 @@ const DashboardScreen = () => {
       )}
       <Text style={styles.sectionTitle}>Transaction History</Text>
       <FlatList
-        data={transactions}
-        keyExtractor={(item) => item.id}
+        data={transactions }
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={[styles.transactionItem, styles.shadow]}>
             <Text>

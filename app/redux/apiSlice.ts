@@ -40,7 +40,8 @@ export const apiSlice = createApi({
 
           if (currentUser) {
             const bankAccounts = await api.get(`/bankAccounts?userId=${currentUser.id}`);
-            dispatch(loginSuccess({ ...currentUser, bankAccounts: bankAccounts.data }));
+            const transactions = await api.get(`/transactions?userId=${currentUser.id}`);
+            dispatch(loginSuccess({ ...currentUser, bankAccounts: bankAccounts.data,transactions:transactions.data }));
 
             router.push("(tabs)/dashboard");
             Toast.show({ type: "success", text1: `Welcome back ${currentUser.name}` });
