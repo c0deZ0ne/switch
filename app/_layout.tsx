@@ -10,8 +10,9 @@ import store, { persistor } from "./redux/store";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 
-// ✅ RootLayout Component
+//  RootLayout Component
 export default function RootLayout() {
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
@@ -24,17 +25,6 @@ export default function RootLayout() {
   );
 }
 
-// ✅ Loading Screen
-function LoadingScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color="blue" />
-      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-    </View>
-  );
-}
-
-// ✅ AuthHandler Component
 function AuthHandler() {
   const router = useRouter();
   const segments = useSegments();
@@ -45,7 +35,6 @@ function AuthHandler() {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
 
-      // ✅ Only apply Navigation Bar settings on Android
       if (Platform.OS === "android") {
         const NavigationBar = await import("expo-navigation-bar");
         await NavigationBar.setBackgroundColorAsync("blue");
@@ -63,13 +52,21 @@ function AuthHandler() {
   useEffect(() => {
     if (isAppReady) {
       if (!user.isAuthenticated && segments?.[0] !== "/") {
-        // router.replace("/(auth)/login");
       }
     }
   }, [user.isAuthenticated, isAppReady, segments]);
 
   if (!isAppReady) {
-    return <LoadingScreen />;
+    return (
+      <>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color="blue" />
+          <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+        </View>
+      </>
+    );
   }
 
   return <Stack screenOptions={{ headerShown: false }} />;

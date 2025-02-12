@@ -1,3 +1,13 @@
+export type Transaction = {
+  id: string;
+  userId: string;
+  accountId: string;
+  type: "Deposit" | "Withdrawal" | "Transfer";
+  amount: number;
+  currency: string;
+  status: "Success" | "Pending" | "Failed";
+  timestamp: Date;
+};
 
 export interface BankAccount {
   id: string;
@@ -24,8 +34,10 @@ export interface BankAccount {
         lastEventTime:Date|null|string;
         lastEventMessage:string;
         bankAccounts:BankAccount[];
+        transactions:Transaction[];
       };
       
   
+      
 
     export default User

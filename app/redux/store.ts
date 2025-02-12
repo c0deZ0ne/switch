@@ -13,7 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: persistReducer(persistConfig, userReducer),
-  [apiSlice.reducerPath]: apiSlice.reducer, // ✅ Add RTK Query API reducer
+  [apiSlice.reducerPath]: apiSlice.reducer, //  Add RTK Query API reducer
 });
 
 const store = configureStore({
@@ -23,7 +23,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(apiSlice.middleware), // ✅ Add API middleware
+    }).concat(apiSlice.middleware), //Add API middleware
 });
 
 const persistor = persistStore(store);

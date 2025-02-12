@@ -22,11 +22,12 @@ import { useRegisterUserMutation } from "../redux/apiSlice";
 import Toast from "react-native-toast-message";
 import CustomButton from "../components/CustomButton";
 
-// 📌 Validation Schema
 const registerSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 
 export default function SignupScreen() {
@@ -42,11 +43,19 @@ export default function SignupScreen() {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const result = await registerUser(values).unwrap();
-        Toast.show({ type: "success", text1: "Registration Successful", text2: `Welcome, ${result.name}! 🎉` });
-        router.replace("/(tabs)/profile");
+        Toast.show({
+          type: "success",
+          text1: "Registration Successful",
+          text2: `Welcome, ${result.name}! 🎉`,
+        });
+        router.replace("/(tabs)/dashbaord");
       } catch (error: any) {
         setErrors({ email: "Email already in use" });
-        Toast.show({ type: "error", text1: "Registration Failed", text2: "Email already taken" });
+        Toast.show({
+          type: "error",
+          text1: "Registration Failed",
+          text2: "Email already taken",
+        });
       } finally {
         setSubmitting(false);
       }
@@ -77,17 +86,16 @@ export default function SignupScreen() {
   }
 
   return (
-    <ImageBackground
-      source={require("../../assets/home-bg.jpg")}
-      style={[styles.container, { paddingTop: -insets.top, paddingBottom: -insets.bottom }]}
-      resizeMode="cover"
-      onProgress={() => Keyboard.dismiss()}
-    >
-      <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
+    <>
+      <TouchableWithoutFeedback
+        onPress={() => Keyboard.dismiss()}
+        accessible={false}
+      >
         <View style={styles.innerContainer}>
           <View style={styles.formContainer}>
             {/* Name Input */}
+            <Text style={styles.greeting}>We Await you Switcher!</Text>
+
             <View style={styles.inputViewContainer}>
               <Text style={styles.label}>Name</Text>
               <TextInput
@@ -97,7 +105,9 @@ export default function SignupScreen() {
                 onBlur={formik.handleBlur("name")}
                 value={formik.values.name}
               />
-              {formik.touched.name && formik.errors.name && <Text style={styles.error}>{formik.errors.name}</Text>}
+              {formik.touched.name && formik.errors.name && (
+                <Text style={styles.error}>{formik.errors.name}</Text>
+              )}
             </View>
 
             {/* Email Input */}
@@ -112,7 +122,9 @@ export default function SignupScreen() {
                 value={formik.values.email}
                 autoCapitalize="none"
               />
-              {formik.touched.email && formik.errors.email && <Text style={styles.error}>{formik.errors.email}</Text>}
+              {formik.touched.email && formik.errors.email && (
+                <Text style={styles.error}>{formik.errors.email}</Text>
+              )}
             </View>
 
             {/* Password Input */}
@@ -126,12 +138,18 @@ export default function SignupScreen() {
                 onBlur={formik.handleBlur("password")}
                 value={formik.values.password}
               />
-              {formik.touched.password && formik.errors.password && <Text style={styles.error}>{formik.errors.password}</Text>}
+              {formik.touched.password && formik.errors.password && (
+                <Text style={styles.error}>{formik.errors.password}</Text>
+              )}
             </View>
 
             {/* Submit Button */}
             <CustomButton
-              title={formik.isSubmitting || isLoading ? "Switching up..." : "Be A Switcher"}
+              title={
+                formik.isSubmitting || isLoading
+                  ? "Switching up..."
+                  : "Be A Switcher"
+              }
               onPress={formik.handleSubmit}
               disabled={formik.isSubmitting || isLoading}
               buttonStyle={styles.button}
@@ -139,7 +157,7 @@ export default function SignupScreen() {
           </View>
         </View>
       </TouchableWithoutFeedback>
-    </ImageBackground>
+    </>
   );
 }
 
@@ -156,7 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: "auto",
     minHeight: 100,
     borderRadius: 10,
-    opacity: 0.8,
+    opacity: 0.9,
     width: "100%",
   },
   text: {
@@ -201,8 +219,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 255, 0.2)",
+    backgroundColor: "rgba(0, 0, 255, 0.01)",
     padding: 20,
     minHeight: 600,
+  },
+  greeting: {
+    color: "#14425F",
+    fontSize: 20,
+    marginVertical: 10,
+    marginHorizontal: "auto",
   },
 });

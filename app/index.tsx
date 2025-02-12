@@ -32,11 +32,11 @@ export default function HomeScreen() {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
 
-      // ✅ Only set Navigation Bar on Android
+      //  Only set Navigation Bar on Android
       if (Platform.OS === "android") {
         const NavigationBar = await import("expo-navigation-bar");
         await NavigationBar.setBackgroundColorAsync("#fff");
-        await NavigationBar.setButtonStyleAsync("dark");
+        await NavigationBar.setButtonStyleAsync("light");
       }
 
       setTimeout(() => {
@@ -50,17 +50,12 @@ export default function HomeScreen() {
   useEffect(() => {
     if (isReady) {
       if (isAuthenticated) {
-        router.replace("/(tabs)/profile");
+        router.replace("/(tabs)/dashboard");
       } else {
         setGreeting(determineGreeting());
       }
     }
   }, [isAuthenticated, isReady]);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    setGreeting(`Goodbye, ${name}! 👋`);
-  };
 
   function determineGreeting() {
     if (!lastEventTime) return `Welcome, ${name || "Switcher"}!`;
@@ -70,35 +65,27 @@ export default function HomeScreen() {
     const timeDiffInHours = (currentTime - lastEventTimestamp) / (1000 * 60);
 
     if (lastEvent === "Logout" && timeDiffInHours < 1) {
-      return `Goodbye, ${name || "Switcher"}! 👋`; // ✅ Logout within an hour
+      return `Goodbye, ${name || "Switcher"}! 👋`; // Logout within an hour
     }
-    return `Welcome back, ${name || "Switcher"}! 👋`; // ✅ Returning after an hour or reopening app
+    return `Welcome back, ${name || "Switcher"}! 👋`; // Returning after an hour or reopening app
   }
 
   if (!isReady) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={"blue"} />
-        <StatusBar backgroundColor={primaryColor} barStyle="dark-content" />
+        <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
       </View>
     );
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/home-bg.jpg")}
-      style={[
-        styles.container,
-        { paddingTop: -insets.top, paddingBottom: -insets.bottom },
-      ]}
-      resizeMode="cover"
-    >
+    <>
       <StatusBar backgroundColor={"#fff"} barStyle="dark-content" />
       <View style={styles.innerContainer}>
-        <Text style={styles.text}>{greeting}</Text>
         <LoginScreen />
       </View>
-    </ImageBackground>
+    </>
   );
 }
 
@@ -110,12 +97,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 255, 0.2)",
+    backgroundColor: "rgba(0, 0, 255, 0.01)",
     padding: 20,
     minHeight: 600,
+    alignContent: "center",
   },
   text: {
-    color: "white",
+    color: "#14425F",
     fontSize: 20,
   },
   loadingContainer: {
@@ -124,4 +112,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-

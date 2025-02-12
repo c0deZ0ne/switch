@@ -1,12 +1,12 @@
 import { BankAccount } from "../types";
-import { nanoid } from "nanoid/non-secure"; // ✅ Optimized for React Native
+import { nanoid } from "nanoid/non-secure"; // Optimized for React Native
 
 export const generateBankDetails = (userId: string): BankAccount => {
   const accountNumber = generateRandomAccountNumber();
   const bankNames = ["Moniepoint Bank", "Kuda Bank", "GTBank", "Zenith Bank", "Access Bank"];
 
   return {
-    id: nanoid(), // ✅ Generates a unique account ID
+    id: nanoid(), //Generates a unique account ID
     userId,
     accountName: `User ${userId}'s Account`,
     accountNumber,

@@ -1,37 +1,44 @@
-import React, { useState } from 'react'
-import { Popup, Space, Button } from 'antd-mobile'
+import React, { useState } from "react";
+import { Popup, Space, Button } from "antd-mobile";
 
 // Create simple DemoBlock component and lorem helper locally
-const DemoBlock: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-  <div style={{ margin: '16px 0' }}>
-    <div style={{ marginBottom: '8px' }}>{title}</div>
+const DemoBlock: React.FC<{ title: string; children: React.ReactNode }> = ({
+  title,
+  children,
+}) => (
+  <div style={{ margin: "16px 0" }}>
+    <div style={{ marginBottom: "8px" }}>{title}</div>
     {children}
   </div>
-)
+);
 
 const lorem = {
-  generateParagraphs: (count: number) => 
-    Array(count).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.').join('\n\n')
-}
+  generateParagraphs: (count: number) =>
+    Array(count)
+      .fill(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      )
+      .join("\n\n"),
+};
 
-export default () => {
-  const [visible1, setVisible1] = useState(false)
-  const [visible2, setVisible2] = useState(false)
-  const [visible3, setVisible3] = useState(false)
-  const [visible4, setVisible4] = useState(false)
-  const [visible5, setVisible5] = useState(false)
-  const [visible6, setVisible6] = useState(false)
-  const [visible7, setVisible7] = useState(false)
-  const [visibleCloseRight, setVisibleCloseRight] = useState(false)
+const AppPopper = () => {
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
+  const [visible4, setVisible4] = useState(false);
+  const [visible5, setVisible5] = useState(false);
+  const [visible6, setVisible6] = useState(false);
+  const [visible7, setVisible7] = useState(false);
+  const [visibleCloseRight, setVisibleCloseRight] = useState(false);
 
   return (
     <>
-      <DemoBlock title='弹出位置'>
-        <Space direction='vertical'>
+      <DemoBlock title="弹出位置">
+        <Space direction="vertical">
           <>
             <Button
               onClick={() => {
-                setVisible1(true)
+                setVisible1(true);
               }}
             >
               底部弹出
@@ -39,12 +46,12 @@ export default () => {
             <Popup
               visible={visible1}
               onMaskClick={() => {
-                setVisible1(false)
+                setVisible1(false);
               }}
               onClose={() => {
-                setVisible1(false)
+                setVisible1(false);
               }}
-              bodyStyle={{ height: '40vh' }}
+              bodyStyle={{ height: "40vh" }}
             >
               {mockContent}
             </Popup>
@@ -52,7 +59,7 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisible2(true)
+                setVisible2(true);
               }}
             >
               顶部弹出
@@ -60,13 +67,13 @@ export default () => {
             <Popup
               visible={visible2}
               onMaskClick={() => {
-                setVisible2(false)
+                setVisible2(false);
               }}
               onClose={() => {
-                setVisible2(false)
+                setVisible2(false);
               }}
-              position='top'
-              bodyStyle={{ height: '40vh' }}
+              position="top"
+              bodyStyle={{ height: "40vh" }}
             >
               {mockContent}
             </Popup>
@@ -74,7 +81,7 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisible3(true)
+                setVisible3(true);
               }}
             >
               左侧弹出
@@ -82,10 +89,10 @@ export default () => {
             <Popup
               visible={visible3}
               onMaskClick={() => {
-                setVisible3(false)
+                setVisible3(false);
               }}
-              position='left'
-              bodyStyle={{ width: '60vw' }}
+              position="left"
+              bodyStyle={{ width: "60vw" }}
             >
               {mockContent}
             </Popup>
@@ -93,7 +100,7 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisible4(true)
+                setVisible4(true);
               }}
             >
               右侧弹出
@@ -101,10 +108,10 @@ export default () => {
             <Popup
               visible={visible4}
               onMaskClick={() => {
-                setVisible4(false)
+                setVisible4(false);
               }}
-              position='right'
-              bodyStyle={{ width: '60vw' }}
+              position="right"
+              bodyStyle={{ width: "60vw" }}
             >
               {mockContent}
             </Popup>
@@ -112,12 +119,12 @@ export default () => {
         </Space>
       </DemoBlock>
 
-      <DemoBlock title='自定义样式'>
-        <Space direction='vertical'>
+      <DemoBlock title="自定义样式">
+        <Space direction="vertical">
           <>
             <Button
               onClick={() => {
-                setVisible5(true)
+                setVisible5(true);
               }}
             >
               圆角的弹出层
@@ -125,12 +132,12 @@ export default () => {
             <Popup
               visible={visible5}
               onMaskClick={() => {
-                setVisible5(false)
+                setVisible5(false);
               }}
               bodyStyle={{
-                borderTopLeftRadius: '8px',
-                borderTopRightRadius: '8px',
-                minHeight: '40vh',
+                borderTopLeftRadius: "8px",
+                borderTopRightRadius: "8px",
+                minHeight: "40vh",
               }}
             >
               {mockContent}
@@ -139,7 +146,7 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisible7(true)
+                setVisible7(true);
               }}
             >
               显示关闭按钮
@@ -149,7 +156,7 @@ export default () => {
               visible={visible7}
               showCloseButton
               onClose={() => {
-                setVisible7(false)
+                setVisible7(false);
               }}
             >
               {mockContentWithCloseIcon}
@@ -158,18 +165,18 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisibleCloseRight(true)
+                setVisibleCloseRight(true);
               }}
             >
               显示右侧弹出关闭按钮
             </Button>
 
             <Popup
-              position='right'
+              position="right"
               visible={visibleCloseRight}
               showCloseButton
               onClose={() => {
-                setVisibleCloseRight(false)
+                setVisibleCloseRight(false);
               }}
             >
               {mockContentWithCloseIcon}
@@ -178,7 +185,7 @@ export default () => {
           <>
             <Button
               onClick={() => {
-                setVisible6(true)
+                setVisible6(true);
               }}
             >
               内容超长滚动
@@ -186,11 +193,11 @@ export default () => {
             <Popup
               visible={visible6}
               onMaskClick={() => {
-                setVisible6(false)
+                setVisible6(false);
               }}
             >
               <div
-                style={{ height: '40vh', overflowY: 'scroll', padding: '20px' }}
+                style={{ height: "40vh", overflowY: "scroll", padding: "20px" }}
               >
                 {mockLongContent}
               </div>
@@ -199,15 +206,17 @@ export default () => {
         </Space>
       </DemoBlock>
     </>
-  )
-}
+  );
+};
 
-const mockLongContent = lorem.generateParagraphs(10)
+const mockLongContent = lorem.generateParagraphs(10);
 
 const mockContent = (
   <div style={{ padding: 20 }}>{lorem.generateParagraphs(1)}</div>
-)
+);
 
 const mockContentWithCloseIcon = (
-  <div style={{ padding: '40px 20px 20px' }}>{lorem.generateParagraphs(1)}</div>
-)
+  <div style={{ padding: "40px 20px 20px" }}>{lorem.generateParagraphs(1)}</div>
+);
+
+export default AppPopper;

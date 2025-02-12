@@ -1,26 +1,19 @@
-# switch
-assessment solution to switch
-install JSON server for mock data
-npm install -g json-server
-➜  switch git:(main) ✗ sudo npm install -g json-server  
+# Switch Mobile App
 
+### Assessment Solution for Switch
 
-json-server --watch db.json --port 3001
+This project is a **React Native (Expo) application** with **Redux for state management** and **JSON Server for mock API data**.
 
-json-server --host 0.0.0.0 --watch db.json --port 3001 external
+---
 
+## 🚀 Getting Started
 
-ifconfig | grep "inet ":--mac
+### 1️⃣ Prerequisites
 
+Ensure you have the following installed:
 
-Run JSON Server with verbose logging using --verbose:
+*   **Node.js** (LTS version) → [Download Here](https://nodejs.org/)
+*   **Yarn** (recommended) → Install globally with:
 
-sh
-Copy
-Edit
-json-server --host 0.0.0.0 --watch db.json --port 3001 --verbose
-This will log every request made to the server, including:
-
-HTTP method (GET, POST, PUT, DELETE)
-Request body
-Response status codes
+```bash
+npm install -g yarn
