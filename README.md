@@ -1,19 +1,25 @@
-# Switch Mobile App
+Setup Instructions:
 
-### Assessment Solution for Switch
+Extract the ZIP file to your preferred directory. clone the repository
+Ensure you have Node.js, Yarn (or NPM), and Expo CLI installed.
+Open a terminal in the project folder and install dependencies:
+sh yarn install 
+npm install  
+Start the mock API server using JSON Server:
+5.  json-server --watch db.json --port 3001  
+If testing on a physical device, use:
 
-This project is a **React Native (Expo) application** with **Redux for state management** and **JSON Server for mock API data**.
+json-server --host 0.0.0.0 --watch db.json --port 3001  
+Run the Expo project:
+sh
+expo start  
+You can scan the QR code with the Expo Go app or run it on an emulator.
 
----
+Features Implemented:
 
-## 🚀 Getting Started
-
-### 1️⃣ Prerequisites
-
-Ensure you have the following installed:
-
-*   **Node.js** (LTS version) → [Download Here](https://nodejs.org/)
-*   **Yarn** (recommended) → Install globally with:
-
-```bash
-npm install -g yarn
+Authentication (Login, Register, Logout)
+Redux Toolkit with Persist for state management
+Mock API with JSON Server
+Right-side drawer navigation
+Transaction history and dashboard
+Toast notifications
